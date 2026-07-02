@@ -1,0 +1,11 @@
+parameters:
+    level: 6
+    paths:
+        - .
+    tmpDir: var/tmp/phpstan
+    reportUnmatchedIgnoredErrors: false
+
+    # Kimai loads many services dynamically; keep analysis practical for safe cleanup
+    ignoreErrors:
+        - '#Symfony\\Component\\DependencyInjection#'
+

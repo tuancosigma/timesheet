@@ -1,0 +1,6 @@
+DATABASE_NAME=kimai
+DATABASE_USER=kimaiuser
+DATABASE_PASSWORD=kimai_pass
+DATABASE_ROOT_PASSWORD=kimai_root_pass
+ADMIN_EMAIL=admin@admin.com
+ADMIN_PASSWORD=changeme

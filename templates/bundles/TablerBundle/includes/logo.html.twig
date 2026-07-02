@@ -1,0 +1,20 @@
+<a href="{{ path('tabler_welcome'|tabler_route) }}" class="d-flex align-items-center text-decoration-none cosigma-brand-link" title="{{ 'dashboard.title'|trans }}">
+    {% set logo = config('theme.branding.logo') %}
+    {% set company = config('theme.branding.company') %}
+    
+    {% if logo is not empty %}
+        <span class="cosigma-brand-mark d-inline-flex align-items-center justify-content-center me-2 flex-shrink-0">
+            <img src="{{ logo }}" class="navbar-brand-image cosigma-brand-mark__img" width="40" height="40" alt="{{ company|default('') }}" style="object-fit: contain; border-radius: 12px; box-shadow: 0 3px 14px rgba(32, 139, 155, 0.35), 0 1px 4px rgba(232, 78, 54, 0.15);">
+        </span>
+        {% if company is not empty %}
+            <span class="h2 mb-0 d-none d-md-inline cosigma-brand-title" style="font-weight: 700; letter-spacing: 0.04em; background: linear-gradient(105deg, #208B9B 0%, #E84E36 50%, #208B9B 100%); -webkit-background-clip: text; background-clip: text; color: transparent;">{{ company }}</span>
+        {% endif %}
+    {% elseif company is not empty %}
+        <span class="h2 mb-0" style="font-weight: 700; letter-spacing: 0.5px;">{{ company }}</span>
+    {% elseif tabler_bundle.getLogoUrl() is not empty %}
+        <img class="navbar-brand-image" alt="{{ company|default(constant('\\App\\Constants::SOFTWARE') ~ ' ' ~ constant('\\App\\Constants::VERSION')) }}" width="110" height="32"
+                src="{% if '://' in tabler_bundle.getLogoUrl() %}{{ tabler_bundle.getLogoUrl() }}{% else %}{{ asset(tabler_bundle.getLogoUrl()) }}{% endif %}">
+    {% else %}
+        <span class="h2 mb-0">{{ get_title()|raw }}</span>
+    {% endif %}
+</a>

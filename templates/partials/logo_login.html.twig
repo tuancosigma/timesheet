@@ -1,0 +1,14 @@
+{% set logo = config('theme.branding.logo') %}
+{% set company = config('theme.branding.company') %}
+{% if logo is not empty %}
+    <div class="cosigma-login-brand mb-4 text-center">
+        <img src="{{ logo }}" alt="{{ company|default('') }}" width="96" height="96" style="max-height: 120px; max-width: 100%; width: auto; height: auto; object-fit: contain; border-radius: 22px; box-shadow: 0 12px 36px rgba(32, 139, 155, 0.3), 0 4px 14px rgba(232, 78, 54, 0.12);">
+    </div>
+{% elseif company is not empty %}
+    <p class="h1 mb-4">{{ company }}</p>
+{% elseif tabler_bundle.getLogoUrl() is not empty %}
+    <img alt="{{ get_title() }}" style="max-width: 150px;"
+         src="{% if '://' in tabler_bundle.getLogoUrl() %}{{ tabler_bundle.getLogoUrl() }}{% else %}{{ asset(tabler_bundle.getLogoUrl()) }}{% endif %}">
+{% else %}
+    <p>{{ get_title()|raw }}</p>
+{% endif %}

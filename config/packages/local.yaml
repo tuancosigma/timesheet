@@ -1,0 +1,51 @@
+kimai:
+    theme:
+        branding:
+            logo: '/cosigma-logo.png'
+            company: 'Cosigma'
+    saml:
+        activate: true
+        title: "Microsoft 365"
+        provider: microsoft
+        mapping:
+            - { kimai: email, saml: "$http://schemas.xmlsoap.org/ws/2005/05/identity/claims/emailaddress" }
+            - { kimai: alias, saml: "$http://schemas.microsoft.com/identity/claims/displayname" }
+        roles:
+            attribute: "http://schemas.microsoft.com/ws/2008/06/identity/claims/role"
+            mapping:
+                - { saml: "Admin", kimai: ROLE_SUPER_ADMIN }
+                - { saml: "User", kimai: ROLE_USER }
+        connection:
+            baseurl: 'https://time.cosigma.io/auth/saml'
+            strict: false
+            debug: true
+            idp:
+                entityId: "https://sts.windows.net/d8fab091-9852-41e1-8300-057ce10d3ca9/"
+                singleSignOnService:
+                    url: "https://login.microsoftonline.com/d8fab091-9852-41e1-8300-057ce10d3ca9/saml2"
+                    binding: "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+                x509cert: "MIIC8DCCAdigAwIBAgIQFYJBNl4QPJNNT4G+w2boYTANBgkqhkiG9w0BAQsFADA0MTIwMAYDVQQDEylNaWNyb3NvZnQgQXp1cmUgRmVkZXJhdGVkIFNTTyBDZXJ0aWZpY2F0ZTAeFw0yNjAyMjAwNzM0MjRaFw0yOTAyMjAwNzM0MjNaMDQxMjAwBgNVBAMTKU1pY3Jvc29mdCBBenVyZSBGZWRlcmF0ZWQgU1NPIENlcnRpZmljYXRlMIIBIjANBgkqhkiG9w0BAQEFAAOCAQ8AMIIBCgKCAQEA8nuk3xjRbvGFGsmIp6Oazcr/PblhRCkmrZu6FFrlXeE5+xFgO/CiEJU5o9RmjV33tfTYLkaor4c8biZEfnwyQVK6Bn0vRwI65h8u/So5dndtPEz1YqY2j4JRe5FtbQcwbf8ISmIdADxnnJK6XSFItzKLD5wfZxMJq1Z6bWsQv7WKLjeAKFDgX/D8C5vDgRTK8Z40qw+NH14ccLok+I404YiElwtYcCnwNyHHWcYIwiL9HREemacHimeKy4eX+UvNNcq5l6BdqlblUbuPF6Zkvr9lR5G3836yoJXPlw42TGi3DQ3HJxhT7fmqLYFEoVtvUqPxEB7xJPtWqne4dnpyLQIDAQABMA0GCSqGSIb3DQEBCwUAA4IBAQC4SMb3aXgyxnYXaRIjkmHGXUogQRoYU9BNr+f6JgEmhAVzbrFe+Xy8uJgVRO8xZ3LWgA/fpLNCWHQVri3OQi4hamBOOSzg0YwVi27KXh8DEKRBk6gM4pGIAONgLZZbOIttQjXYtfoXLG3rKORFONvhpfqKahmc4phsztiatVOvl+GI6kOkvZ3+BPkQlPQrzpNaRIVprOX7I/N6c9S/rE8a0R0RwRJgvoSzlr2upVTWJxv3KHWyLDr9dzElzaWZhoGFqRI4usLjHcrOiWm5Gg5wICsyT3e1ofgTkk2HSvD70WcKzHaaLJr9ZkZQaazkoV9BuayZ/K0gdgzjbArOYidm"
+            sp:
+                entityId: "https://time.cosigma.io/auth/saml/metadata"
+                assertionConsumerService:
+                    url: "https://time.cosigma.io/auth/saml/acs"
+                    binding: "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-POST"
+                singleLogoutService:
+                    url: "https://time.cosigma.io/auth/saml/logout"
+                    binding: "urn:oasis:names:tc:SAML:2.0:bindings:HTTP-Redirect"
+    permissions:
+        roles:
+            ROLE_USER: 
+                - 'view_project'
+                - 'view_activity'
+                - 'view_customer'
+                - 'view_team_project'
+                - 'view_team_activity'
+                - 'view_team_customer'
+                - 'time_project'
+                - 'time_activity'
+                - 'time_customer'
+        sets:
+            INVOICE: []
+            INVOICE_ADMIN: []
+            INVOICE_ALL: []

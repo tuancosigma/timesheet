@@ -1,0 +1,17 @@
+{
+  "name": "Cosigma",
+  "short_name": "Cosigma",
+  "icons": [
+    {
+      "src": "/cosigma-logo.png",
+      "sizes": "512x512",
+      "type": "image/png",
+      "purpose": "any maskable"
+    }
+  ],
+  "scope": "./",
+  "start_url": "./",
+  "theme-color": "#208B9B",
+  "background_color": "#ffffff",
+  "display": "standalone"
+}

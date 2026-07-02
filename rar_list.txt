@@ -1,0 +1,30 @@
+
+UNRAR 7.12 freeware      Copyright (c) 1993-2025 Alexander Roshal
+
+Archive: /root/kimai.rar
+Details: RAR 5
+
+ Attributes      Size     Date    Time   Name
+----------- ---------  ---------- -----  ----
+    ..A....      2158  2026-03-23 08:14  kimai/root/kimai-src/.env
+    ..A....      2196  2026-02-15 21:31  kimai/root/kimai-src/.env.dist
+    ..A....       491  2026-02-15 21:31  kimai/root/kimai-src/bin/console
+    ..A....        82  2026-02-15 21:31  kimai/root/kimai-src/CHANGELOG.md
+    ..A....      6979  2026-02-15 22:10  kimai/root/kimai-src/composer.json
+    ..A....    546731  2026-02-15 22:09  kimai/root/kimai-src/composer.lock
+    ..A....      1408  2026-02-15 21:31  kimai/root/kimai-src/config/bundles.php
+    ..A....     34368  2026-02-15 21:31  kimai/root/kimai-src/config/locales.php
+    ..A....       177  2026-02-15 21:31  kimai/root/kimai-src/config/packages/assets.yaml
+    ..A....       529  2026-02-15 21:31  kimai/root/kimai-src/config/packages/cache.yaml
+    ..A....      2601  2026-02-15 21:31  kimai/root/kimai-src/config/packages/doctrine.yaml
+    ..A....       289  2026-02-15 21:31  kimai/root/kimai-src/config/packages/doctrine_migrations.yaml
+    ..A....      1478  2026-02-15 21:31  kimai/root/kimai-src/config/packages/fos_rest.yaml
+    ..A....      1487  2026-02-15 21:31  kimai/root/kimai-src/config/packages/framework.yaml
+    ..A....       634  2026-02-15 21:31  kimai/root/kimai-src/config/packages/jms_serializer.yaml
+    ..A....     11202  2026-02-15 21:31  kimai/root/kimai-src/config/packages/kimai.yaml
+    ..A....      2609  2026-03-28 12:54  kimai/root/kimai-src/config/packages/local.yaml
+    ..A....      1341  2026-03-30 07:45  kimai/root/kimai-src/config/packages/monolog.yaml
+    ..A....      6957  2026-03-28 12:54  kimai/root/kimai-src/config/packages/nelmio_api_doc.yaml
+    ..A....       860  2026-02-15 21:31  kimai/root/kimai-src/config/packages/nelmio_cors.yaml
+    ..A....       535  2026-02-15 21:31  kimai/root/kimai-src/config/packages/rate_limiter.yaml
+    ..A....       449  2026-02-15 21:31  kimai/root/kimai-src/config/packages/routing.yaml

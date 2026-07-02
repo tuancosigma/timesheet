@@ -1,0 +1,5 @@
+.env
+kimai_prod_dump.sql
+kimai_backup.tar.gz
+var/
+vendor/

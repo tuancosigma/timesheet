@@ -1,0 +1,60 @@
+# Kimai trong container nghe cổng 8001; host map 9000 (tránh dải cổng Windows loại trừ ~7921–8020).
+# Trình duyệt: http://localhost:9000/
+
+services:
+  sqldb:
+    image: mysql:8.3
+    volumes:
+      - mysql_data:/var/lib/mysql
+      # Automatically load the database dump on startup
+      - ./kimai_db_dump.sql:/docker-entrypoint-initdb.d/kimai_db_dump.sql
+    environment:
+      - MYSQL_DATABASE=kimai
+      - MYSQL_USER=kimai
+      - MYSQL_PASSWORD=kimai_pass
+      - MYSQL_ROOT_PASSWORD=kimai_root_pass
+    command: --default-storage-engine innodb
+    restart: unless-stopped
+    healthcheck:
+      test: mysqladmin -p$$MYSQL_ROOT_PASSWORD ping -h localhost
+      interval: 20s
+      start_period: 10s
+      timeout: 10s
+      retries: 3
+
+  kimai:
+    image: kimai/kimai2:apache
+    container_name: kimai_local
+    ports:
+      - "9000:8001"
+    volumes:
+      - kimai_data:/opt/kimai/var/data
+      # Mount the custom plugin from the downloaded folder into the container
+      - ./var/plugins:/opt/kimai/var/plugins
+      # Mount local code so core entity changes + new migrations are applied
+      - ./src:/opt/kimai/src
+      - ./migrations:/opt/kimai/migrations
+      - ./config:/opt/kimai/config
+      - ./templates:/opt/kimai/templates
+      - ./translations:/opt/kimai/translations
+      - ./public/cosigma-logo.png:/opt/kimai/public/cosigma-logo.png
+      - ./public/cosigma-theme.css:/opt/kimai/public/cosigma-theme.css
+    environment:
+      - ADMINMAIL=admin@admin.com
+      - ADMINPASS=changeme
+      - "DATABASE_URL=mysql://kimai:kimai_pass@sqldb/kimai?charset=utf8mb4&serverVersion=8.3.0"
+      - APP_ENV=prod
+    restart: unless-stopped
+    depends_on:
+      sqldb:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+
+volumes:
+  kimai_data:
+  mysql_data:

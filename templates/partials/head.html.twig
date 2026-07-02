@@ -1,0 +1,24 @@
+<meta charset="utf-8">
+<meta content="width=device-width, initial-scale=1" name="viewport">
+<meta name="robots" content="noindex,nofollow">
+{% set _brand_icon = config('theme.branding.logo')|default('/cosigma-logo.png') %}
+{% set _icon_mime = '.svg' in _brand_icon|lower ? 'image/svg+xml' : 'image/png' %}
+<link id="favicon" rel="icon" type="{{ _icon_mime }}" href="{{ _brand_icon }}">
+<link rel="icon" type="{{ _icon_mime }}" href="{{ _brand_icon }}" sizes="any">
+<link rel="apple-touch-icon" href="{{ _brand_icon }}">
+<link rel="apple-touch-icon-precomposed" href="{{ _brand_icon }}">
+<link rel="apple-touch-icon" sizes="152x152" href="{{ _brand_icon }}">
+<link rel="apple-touch-icon" sizes="180x180" href="{{ _brand_icon }}">
+<link rel="manifest" href="{{ asset('manifest.json') }}">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Fraunces:opsz,wght@9..144,500;9..144,650&family=Manrope:wght@400;500;600;700&display=swap" rel="stylesheet">
+<meta name="apple-mobile-web-app-title" content="{{ constant('App\\Constants::SOFTWARE') }}">
+<meta name="apple-mobile-web-app-capable" content="yes">
+<meta name="mobile-web-app-capable" content="yes">
+<meta name="application-name" content="{{ constant('App\\Constants::SOFTWARE') }}">
+<meta name="msapplication-config" content="{{ asset('browserconfig.xml') }}">
+<meta name="theme-color" content="#208B9B">
+{% if tabler_bundle.isThemeAuto() %}
+    <script>if (window.matchMedia) { document.documentElement.setAttribute('data-bs-theme', (window.matchMedia("(prefers-color-scheme: dark)").matches) ? 'dark': 'light'); }</script>
+{% endif %}

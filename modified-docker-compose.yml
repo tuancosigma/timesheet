@@ -1,0 +1,72 @@
+services:
+
+  sqldb:
+    image: mysql:8.3
+    volumes:
+      - mysql:/var/lib/mysql
+    environment:
+      - MYSQL_DATABASE=${DATABASE_NAME}
+      - MYSQL_USER=${DATABASE_USER}
+      - MYSQL_PASSWORD=${DATABASE_PASSWORD}
+      - MYSQL_ROOT_PASSWORD=${DATABASE_ROOT_PASSWORD}
+    command: --default-storage-engine innodb
+    restart: unless-stopped
+    networks:
+      - web
+    healthcheck:
+      test: mysqladmin -p$$MYSQL_ROOT_PASSWORD ping -h localhost
+      interval: 20s
+      start_period: 10s
+      timeout: 10s
+      retries: 3
+
+  kimai:
+    image: kimai/kimai2:apache
+    container_name: kimai
+    ports: []
+    volumes:
+      - data:/opt/kimai/var/data
+      - ./var/plugins:/opt/kimai/var/plugins
+      - ./src:/opt/kimai/src
+      - ./migrations:/opt/kimai/migrations
+      - ./config:/opt/kimai/config
+      - ./templates:/opt/kimai/templates
+      - ./translations:/opt/kimai/translations
+      - ./public/cosigma-logo.png:/opt/kimai/public/cosigma-logo.png
+      - ./public/cosigma-theme.css:/opt/kimai/public/cosigma-theme.css
+    environment:
+      - ADMINMAIL=${ADMIN_EMAIL}
+      - ADMINPASS=${ADMIN_PASSWORD}
+      - "DATABASE_URL=mysql://${DATABASE_USER}:${DATABASE_PASSWORD}@sqldb/${DATABASE_NAME}?charset=utf8mb4&serverVersion=8.3.0"
+      - TRUSTED_PROXIES=traefik,127.0.0.1,10.0.0.0/8,172.16.0.0/12,192.168.0.0/16
+    restart: unless-stopped
+    depends_on:
+      sqldb:
+        condition: service_healthy
+    healthcheck:
+      test: ["CMD", "curl", "-f", "http://localhost:8001/"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 40s
+    networks:
+      - web
+    labels:
+      - "traefik.enable=true"
+      - "traefik.http.routers.kimai.rule=Host(`time.cosigma.io`)"
+      - "traefik.http.routers.kimai.entrypoints=websecure"
+      - "traefik.http.routers.kimai.tls.certresolver=letsencrypt"
+      - "traefik.http.services.kimai.loadbalancer.server.port=8001"
+
+volumes:
+  data:
+    name: kimai_data
+  mysql:
+    name: kimai_mysql
+  plugins:
+    name: kimai_plugins
+
+networks:
+  web:
+    name: web_global
+    external: true

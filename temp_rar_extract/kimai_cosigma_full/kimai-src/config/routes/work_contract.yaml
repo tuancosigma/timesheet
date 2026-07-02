@@ -1,0 +1,6 @@
+work_contract:
+    resource: '/opt/kimai/var/plugins/WorkContractBundle/Controller/'
+    type: attribute
+    prefix: '/{_locale}'
+    defaults:
+        _locale: '%locale%'
